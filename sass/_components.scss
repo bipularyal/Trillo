@@ -1,0 +1,566 @@
+ ////////// logo /////////////
+ .logo{
+     height: 3.25rem;
+     margin-left: 2rem;
+ }
+
+ //////////search box/////////
+ .search{
+     flex: 0 0 40%;  //no growth no shrink 40% of available width occupy
+     display: flex;  //nested flex 
+     align-items: center;
+     justify-content: center;  //this is so every thing is in middle of container
+     
+     @media only screen and(max-width:$bp-small-2){
+        order: 1;  // so it's in last and eventually new line
+        flex:  0 0 100%;
+        background-color: var(--color-grey-light-2);
+    }
+     
+     &__input{
+        font-size: inherit;
+        font-family: inherit;
+        background-color: var(--color-grey-light-2);
+        border: none;
+        border-radius: 100px;
+        width: 90%;
+        padding: 0.7rem 2rem;
+        transition: all 0.3s;
+        margin-right: -3.5rem; //so search button is in same place as 
+        &:focus{
+            outline: none;
+            width: 100%;
+            background-color: var(--color-grey-light-3);
+        }
+        &:focus + .search__button{
+            background-color: var(--color-grey-light-3);
+        }
+        &::-webkit-input-placeholder{
+            font-weight: 100;
+            color: var(--color-grey-light-4);
+
+        }
+
+    }
+     &__button{
+         border: none;
+         background-color: var(--color-grey-light-2);
+         &:focus{
+             outline: none;
+         }
+         &:active{
+            transform: translateY(2px);
+         }
+
+     }
+     &__icon{
+        height: 2rem;  //this is how we format svg icons very easy
+        width: 2rem;
+        fill: var(--color-grey-dark-2);  //coloring svg items
+
+     }
+ }
+
+ //////////// user nav
+ .user-nav{
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     align-self: stretch; //so full length of container/nav height is covered by the user-nav
+     //this overrides align items center from header
+     & > * {
+         //all direct children of user-nav are selected
+         padding: 0 2rem;
+         cursor: pointer;
+         height: 100%; //hover entire area
+         display: flex;   //to center indicidual elements of navigation
+        align-items: center;
+     }
+     & > *:hover{
+         background-color: var(--color-grey-light-2);
+     }
+     &__icon-box{
+        position: relative;
+     }
+     &__icon{
+        height: 2.25rem;  //this is how we format svg icons very easy
+        width: 2.25rem;
+        fill: var(--color-grey-dark-2);
+
+     }
+     &__notification{
+        font-size: 0.8rem;
+        height: 1.75rem;
+        width: 1.75rem;
+        border-radius: 50%;
+        color: #fff;
+        background-color: var(--color-primary);
+        position: absolute;
+        top: 1.5rem;
+        right: 1.1rem;
+        display: flex;  //to center text inside notificationbecause flex works with texts too 
+        justify-content: center;
+        align-items: center;
+     }
+     &__user{
+
+         &-photo{
+            height: 5.75rem;
+            border-radius: 50%;
+            margin-right: 1rem;
+
+         }
+     }
+ }
+
+
+ /////////// side navigation  ///////////////////////
+
+ .side-nav{
+     font-size: 1.4rem;
+     list-style: none;
+     margin-top: 3.5rem;
+     @media only screen and(max-width:$bp-medium){
+        display: flex;//so sidebar elements are side by side
+        margin: 0;  
+    }
+
+     &__item{
+         position: relative;
+         &:not(:last-child){
+             margin-bottom: 0.6rem;
+         }
+
+        @media only screen and(max-width:$bp-medium){
+            flex: 1;  //so all components occupy quarter width  
+            margin-bottom: 0;
+        }
+
+     }
+     &__item::before{
+         content: "";
+         position: absolute;
+         top: 0;
+         left: 0;
+         height: 100%;
+        width: 6px;
+        background-color: var(--color-primary);
+        transform: scaley(0);  //at first not visible
+        transform-origin: center;  //so it will start to scale from bottom
+        transition: transform 0.2s,background-color 0.1s,  //different settings can be done for different properties
+                    width 0.4s cubic-bezier(1, 0, 0, 1) 0.2s,;   //first transform happens in 0.2s and then after 0.2s delay the width becomes 100%
+                //the cubic bezier is for transition effects how it happens
+    }
+     &__item:hover::before,.active::before{
+         transform: scaleY(1);
+         width: 100%;
+     } 
+     &__item:active::before{
+        background-color: var(--color-primary-light);
+     }
+
+     &__link:link,&__link:visited{
+        color: var(--color-grey-light-1);
+        text-decoration: none;
+        text-transform: uppercase;
+        display: block;
+        padding: 1.5rem 3rem;
+        display: flex;
+        align-items: center;  //to center icon and text
+        position: relative;
+        z-index: 2;   //position relative because z-index only works if we specified position
+        
+        @media only screen and(max-width:$bp-medium){
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        @media only screen and(max-width:$bp-small){
+            flex-direction: column;   //this is most powerful since we put elements on top of one another in small screen and very wasy to do
+            padding: 1rem; 
+        }
+    }
+     &__icon{
+        width: 1.75rem;
+        height: 1.75rem;
+        margin-right: 2rem;
+        fill: currentColor;   //currentcolor is color of parent element
+        @media only screen and(max-width:$bp-small){
+            margin-right: 0;
+            width: 1.5rem;
+            height: 1.5rem;
+             margin-bottom: 0.7rem;
+        } 
+    
+    }
+ }
+ ////////legal text
+ .legal{
+    font-size: 1.2rem; 
+    text-align: center;
+    padding: 2.5rem;
+    color: var(--color-grey-light-4);
+    @media only screen and(max-width:$bp-medium){
+        display: none;
+    }
+}
+
+
+///////////gallery items:
+.gallery{
+    display: flex;
+    
+    &__photo{
+        width: 100%;
+        display: block;
+    }
+}
+
+////******************overview component
+.overview{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--color-grey-light-2);
+    flex-wrap: wrap;
+
+    @media only screen and(max-width:420px){
+        justify-content: space-around;
+    }
+
+    &__heading{
+        font-size: 2.25rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 1.5rem 3rem;
+        @media only screen and(max-width:$bp-small){
+            font-size:1.8rem;
+            padding: 1.1rem 1.8rem;
+        }
+        @media only screen and(max-width:$bp-small-2){
+            font-size: 1.6rem;
+        }
+        @media only screen and(max-width:420px){
+            flex: 0 0 100%;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+    }
+    &__stars{
+        margin-right: auto;  //this makes element occupy only the space it needs. and remaining space is calculated as it's margin so elements are separated into 2 directions
+        display: flex;  //this is to fix small wite space in star icons... this space occurs because svg behaves like inline elements
+        @media only screen and(max-width:420px){
+            margin-right: 0;
+        }
+    }
+    &__icon-star,&__icon-location{
+        width: 1.75rem;
+        height: 1.75rem;
+        fill: var(--color-primary);
+        transition: all 0.2s;
+    }
+    &__location{
+        display: flex; 
+        vertical-align: center;
+        font-size: 1.2rem;
+       // flex: 1;  this can work  but is not very ideal to separate elements in 2 sections
+    }
+    &__location:hover > &__icon-location{
+        fill: var(--color-grey-dark-1);
+    }
+    &__icon-location{
+        margin-right: 0.5rem;
+    }
+
+    &__rating{
+        background-color: var(--color-primary);
+        color: #fff;
+        padding: 0 2.25rem;
+        align-self: stretch;   //so this container element fills height of element
+        margin-left: 3rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;  // all 4 to center elements
+        
+        @media only screen and(max-width:$bp-small){
+            padding: 0 1.5rem;
+        }
+
+        &-average{
+            font-size: 2.25rem;
+            font-weight: 300;
+
+            @media only screen and(max-width:$bp-small){
+                font-size: 1.8rem;
+            }
+        }
+        &-count{
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+    }
+}
+
+////button
+.btn-inline{
+border: none;
+color: var(--color-primary);
+font-size: inherit;
+border-bottom: 1px solid currentColor;  //currentcolor means color of parent element 
+padding: 2px;
+display: inline-block;
+background: transparent;
+cursor: pointer;
+transition: all 0.3s;
+
+span{
+    margin-left: 5px;
+    transition: margin-left 0.4s;
+}
+&:hover{
+    color:var(--color-grey-dark-1);
+    span{
+        margin-left: 10px;
+    }
+
+}
+&:focus{
+    outline: none;
+    animation: pulsade 0.5s infinite;
+    backface-visibility: hidden;
+
+}
+}
+@keyframes pulsade{
+    0%{
+        transform: 1;
+        box-shadow: none;
+    }
+    50%{
+        transform: scale(1.06);
+        box-shadow: 0 1rem 4rem rgba($color: #000000, $alpha: 0.25);
+    }
+    100%{
+        transform: 1;
+        box-shadow: none;
+    }
+}
+
+
+/////////////////////
+///////// description
+
+///////////////////// paragraph
+
+.paragraph:not(:last-of-type){
+    margin-bottom: 2rem;
+}
+/////////////////////list
+.list{
+    margin: 3rem 0;
+    list-style: none;
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--color-grey-light-2);
+    border-top: 1px solid var(--color-grey-light-2);
+    display: flex;
+    flex-wrap: wrap;  // if element doesn't finish all it gors to next line
+    &__item{
+        flex: 0 0 50%;  //each element has width 50% so they're side by side
+        margin-bottom: 0.6rem;
+
+        @media only screen and(max-width:420px){
+            flex: 0 0 75%;
+        }
+
+        &::before{   //using svg icons right in css
+            content: "";
+            display: inline-block;
+            height: 1rem;
+            width: 1rem;
+            margin-right: 1rem;
+
+
+            //this is for older browsers bsckimg and size
+            background-image: url(../img/chevron-thin-right.svg);
+            background-size: cover;
+
+            //newer browsers can use mask
+            //  mask defines an area where we can look through the element and see what's behind that element.
+            background-color: var(--color-primary);
+            //now we'll put a mask and only where a mask is we'll be able to look through and see background that is right icon
+            @supports (mask-image:url()) or (-webkit-mask-image:url()){   //check support for mask
+                mask-image: url(../img/chevron-thin-right.svg);
+                mask-size: cover;
+                background-image: none;
+            }
+            
+
+        }
+    }
+}
+
+//////////////// recommended
+.recommend{
+    font-size: 1.3rem;
+    color: var(--color-grey-dark-3);
+    align-items: center; 
+    justify-content: space-between;  // or margin/right:auto
+    display: flex;
+
+    &__friends{
+        display: flex;
+    }
+    &__count{
+        margin-right: auto;
+    }
+
+    &__photo{
+        box-sizing: content-box ;  //so the border of 3px is not included in image size
+        height: 4rem;
+        width: 4rem;
+        border-radius: 50%;
+        border: 3px solid #fff;
+        &:not(:last-child){
+            margin-right: -2rem;
+        }
+    }
+
+}
+
+
+
+////////////////////review
+
+.review{
+    background-color: #fff;
+    box-shadow: 0 2rem 5rem rgba(0,0,0,0.05); 
+    padding: 3rem;
+    margin-bottom: 3.5rem;
+    overflow: hidden;
+    position: relative;
+
+    @media only screen and(max-width:$bp-medium){
+        padding: 2rem;
+        margin-bottom: 3rem;
+    }
+
+     &__text{
+        margin-bottom: 2rem;
+        z-index: 3;
+        position: relative;
+     }
+     &__user{
+         display: flex;
+         align-items: center;
+         
+         &-box{
+            margin-right: auto;
+         }
+         &-name{
+             font-size:1.1rem;
+             font-weight: 600;
+             text-transform: uppercase;
+             margin-bottom: 0.4rem;
+        }
+        &-date{
+             font-size: 1rem;
+             color: var(--color-grey-dark-3);
+        }
+         
+    }
+    &__photo{
+        height: 4.5rem;
+        width: 4.5rem;
+        border-radius: 50%;
+         margin-right:1.5rem;
+    }
+    &__rating{
+        color: var(--color-primary);
+        font-size: 2.2rem;
+    }
+    &::before{
+           //this is for the quotation mark 
+        content: "\201C";    //we get this already available in browsers check html symbols 
+        position: absolute;
+        top: -2.5rem;
+        left: -1.5rem;
+        font-size: 20rem;
+        color: var(--color-grey-light-2);
+        font-family: sans-serif;
+        line-height: 1;
+        z-index: 2;   //smaller z-index than text
+    }
+}
+
+///////////////////////////call to action
+
+.cta{
+    padding: 3rem .5rem ;
+    text-align: center;
+
+    @media only screen and(max-width:$bp-medium){
+        padding: 2rem 0;
+    }
+
+    &__book-now{
+        font-size: 1.5rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        margin-bottom: 2.5rem;
+    }
+} 
+
+////////////cta button
+
+.btn{
+    cursor: pointer;
+    ////////////// this all is for special button hover effeect one part the invisible onw will be hidden at first and slides down on hover
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    border-radius: 100px;
+    background-image: linear-gradient(to right, var(--color-primary-light), var(--color-primary-dark));
+    color:#fff;
+    border: none;
+    position: relative;
+    outline: none;
+    overflow: hidden;
+
+    & > *{
+        display: inline-block;
+        height: 100%;  //this height is necessary for translate and position abs both
+        width: 100%;
+        transition: all 0.3s;
+    }
+    &__visible{
+        display: inline-block;
+        padding: 2rem 7.5rem;
+        transform: translateY(0%);
+    }
+    &__invisible{
+        position: absolute;
+        padding: 2rem 0;
+        left: 0;
+        top: -100%;
+    }
+    &:hover{
+    background-image: linear-gradient(to left, var(--color-primary-light), var(--color-primary-dark));
+
+    }
+
+    &:hover &__invisible{
+        top: 0;
+    }
+    &:hover &__visible{
+        transform: translateY(100%);
+    }
+    &:focus{
+        outline: none;
+        animation: pulsade 1s infinite;
+    }   
+}
+
+
+
